@@ -14,8 +14,13 @@ public class PlayerController : MonoBehaviour
    public float jumpForce = 16f;
 
    private float horizontal;
+    private float vertical;
    
    private bool isFacingRight = true;
+
+    public Animator animator;
+
+    public Attack player_combat;
 
    [SerializeField] private Rigidbody2D rb;
    [SerializeField] private Transform groundCheck;
@@ -27,14 +32,37 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce);
+            rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce); 
         }
+
         if (Input.GetButtonUp("Jump") && rb.linearVelocityY > 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocityX, rb.linearVelocity.y * 0.5f);
         }
-
         Flip();
+
+        if(Input.GetButton("Jump")) 
+        {
+            animator.SetBool("isJump", true);
+        }
+        else 
+        {
+            animator.SetBool("isJump", false);
+        }
+
+        if (horizontal != 0)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+
+        if (Input.GetButtonDown("Attack")) 
+        {
+            player_combat.attack();
+        }
     }
 
     private void FixedUpdate()
