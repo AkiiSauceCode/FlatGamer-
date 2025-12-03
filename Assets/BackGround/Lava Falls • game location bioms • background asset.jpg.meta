@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4bac903bae5a3a441aeb3e60b6f9948a
+guid: e873e1d6e27473d4b81e49d97baeb5da
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6205605724983672679
-    second: background_layer_3_0
+      213: -8459001566953957707
+    second: "Lava Falls \u2022 game location bioms \u2022 background asset_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,23 +113,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: background_layer_3_0
+      name: "Lava Falls \u2022 game location bioms \u2022 background asset_0"
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 320
-        height: 180
+        y: 1046
+        width: 736
+        height: 262
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 990c73ac87241e9a0800000000000000
-      internalID: -6205605724983672679
+      spriteID: 5b69c3f74e69b9a80800000000000000
+      internalID: -8459001566953957707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Lava Falls \u2022 game location bioms \u2022 background asset_1"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 784
+        width: 736
+        height: 262
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 917366c53ae29c34bad5e244df6c92f3
+      internalID: -991736644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Lava Falls \u2022 game location bioms \u2022 background asset_2"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 522
+        width: 736
+        height: 262
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8feba5ad34ce5744098930d9174a6593
+      internalID: 745333810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Lava Falls \u2022 game location bioms \u2022 background asset_3"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 260
+        width: 736
+        height: 262
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14b122117bba16c40b03f12acc8ba7b7
+      internalID: 1177403990
       vertices: []
       indices: 
       edges: []
@@ -146,9 +212,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":736.0,"y":262.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      background_layer_3_0: -6205605724983672679
+      "Lava Falls \u2022 game location bioms \u2022 background asset_0": -8459001566953957707
+      "Lava Falls \u2022 game location bioms \u2022 background asset_1": -991736644
+      "Lava Falls \u2022 game location bioms \u2022 background asset_2": 745333810
+      "Lava Falls \u2022 game location bioms \u2022 background asset_3": 1177403990
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

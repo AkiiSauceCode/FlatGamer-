@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4bac903bae5a3a441aeb3e60b6f9948a
+guid: 7f373f8ee0a0b4649b3d3d74cb060b37
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6205605724983672679
-    second: background_layer_3_0
+      213: 4572794039779485633
+    second: Pixel art forest #3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: background_layer_3_0
+      name: Pixel art forest #3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 320
-        height: 180
+        width: 736
+        height: 368
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 990c73ac87241e9a0800000000000000
-      internalID: -6205605724983672679
+      spriteID: 1c7641493f3d57f30800000000000000
+      internalID: 4572794039779485633
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      background_layer_3_0: -6205605724983672679
+      Pixel art forest #3_0: 4572794039779485633
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
