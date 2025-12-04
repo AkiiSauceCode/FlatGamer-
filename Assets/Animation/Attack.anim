@@ -22,22 +22,24 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: db157f3f4053e5d42b295f4b4d18f606, type: 3}
-    - time: 0.11666667
+    - time: 0.0875
       value: {fileID: 21300000, guid: aa1922262d41f724db58bbfbd018ef22, type: 3}
-    - time: 0.23333333
+    - time: 0.175
       value: {fileID: 21300000, guid: 075a00ea91e7bae4ba73bec028915f3f, type: 3}
-    - time: 0.35
-      value: {fileID: 21300000, guid: 31ede79c40ba8a54eb5f1635e840bcdf, type: 3}
-    - time: 0.46666667
+    - time: 0.325
       value: {fileID: 21300000, guid: 4edea5c466cc4f841bf5fdf636448838, type: 3}
-    - time: 0.5833333
+    - time: 0.3875
       value: {fileID: 21300000, guid: 5bdd440fd6b29c34d9efb9637bfdfce9, type: 3}
+    - time: 0.4375
+      value: {fileID: 21300000, guid: 5bdd440fd6b29c34d9efb9637bfdfce9, type: 3}
+    - time: 0.475
+      value: {fileID: 21300000, guid: db157f3f4053e5d42b295f4b4d18f606, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 60
+  m_SampleRate: 80
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -57,15 +59,16 @@ AnimationClip:
     - {fileID: 21300000, guid: db157f3f4053e5d42b295f4b4d18f606, type: 3}
     - {fileID: 21300000, guid: aa1922262d41f724db58bbfbd018ef22, type: 3}
     - {fileID: 21300000, guid: 075a00ea91e7bae4ba73bec028915f3f, type: 3}
-    - {fileID: 21300000, guid: 31ede79c40ba8a54eb5f1635e840bcdf, type: 3}
     - {fileID: 21300000, guid: 4edea5c466cc4f841bf5fdf636448838, type: 3}
     - {fileID: 21300000, guid: 5bdd440fd6b29c34d9efb9637bfdfce9, type: 3}
+    - {fileID: 21300000, guid: 5bdd440fd6b29c34d9efb9637bfdfce9, type: 3}
+    - {fileID: 21300000, guid: db157f3f4053e5d42b295f4b4d18f606, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.59999996
+    m_StopTime: 0.48749998
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -85,7 +88,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.5833333
+  - time: 0.4375
     functionName: finishattacking
     data: 
     objectReferenceParameter: {fileID: 0}
