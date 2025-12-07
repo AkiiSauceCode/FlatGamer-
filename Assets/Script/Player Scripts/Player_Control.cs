@@ -20,11 +20,12 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
 
-    public Attack player_combat;
+    public Attack attackScript;
 
    [SerializeField] private Rigidbody2D rb;
    [SerializeField] private Transform groundCheck;
    [SerializeField] private LayerMask groundLayer;
+   [SerializeField] private PhysicsMaterial2D noFriction;
 
     void Update()
     {
@@ -33,6 +34,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce); 
+            rb.sharedMaterial = noFriction;
+        }
+        
+        if (IsGrounded())
+        {
+            rb.sharedMaterial = null;
         }
 
         if (Input.GetButtonUp("Jump") && rb.linearVelocityY > 0f)
@@ -51,7 +58,7 @@ public class PlayerController : MonoBehaviour
         { animator.SetBool("isWalking", false);}
 
         if (Input.GetButtonDown("Attack")) 
-        {player_combat.attack();}
+        {attackScript.attack();}
     }
 
     private void FixedUpdate()

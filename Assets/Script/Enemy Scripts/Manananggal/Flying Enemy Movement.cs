@@ -19,6 +19,7 @@ public class FlyingEnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if(player == null) return;
         
         if (chase == true)
@@ -65,6 +66,8 @@ public class FlyingEnemyMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
+
+    
 
     
 
