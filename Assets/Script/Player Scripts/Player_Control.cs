@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
 {
    public float speed = 8f;
    public float jumpForce = 16f;
-
    private float horizontal;
     private float vertical;
    
