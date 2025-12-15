@@ -19,7 +19,7 @@ public class Enemy_Movement : MonoBehaviour
 
     
     private Rigidbody2D rb;
-    private Transform player;
+    public Transform player;
     private Animator anim;
 
 
@@ -39,6 +39,7 @@ public class Enemy_Movement : MonoBehaviour
         if (enemyState != EnemyState.Knockback)
         {
             CheckForPlayer();
+            Chase();
             if (attackCooldownTimer > 0)
             {
                 attackCooldownTimer -= Time.deltaTime;
@@ -69,6 +70,7 @@ public class Enemy_Movement : MonoBehaviour
             
             Vector2 direction = (player.position - transform.position).normalized;
             rb.linearVelocity = direction * speed;
+           
     }
 
 
@@ -79,12 +81,10 @@ public class Enemy_Movement : MonoBehaviour
     }
     private void CheckForPlayer()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(detectionPoint.position, playerDetectRange, playerLayer);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(detectionPoint.position, new Vector2(playerDetectRange, 2.5f), 0, playerLayer);
 
         if (hits.Length > 0)
         {
-            player = hits[0].transform;
-        
             //if the player is within attack range AND cooldown is ready
             if (Vector2.Distance(transform.position, player.transform.position) <= attackRange && attackCooldownTimer <= 0 )
             {
@@ -128,8 +128,8 @@ public class Enemy_Movement : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(detectionPoint.position, playerDetectRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(detectionPoint.position, new Vector2(playerDetectRange, 2.5f) );
     }
 }
 
