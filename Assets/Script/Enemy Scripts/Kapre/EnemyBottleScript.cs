@@ -35,7 +35,7 @@ public class EnemyBottleScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player")) 
         {
-            collision.gameObject.GetComponent<PlayerHealth>().currentHelth -= dam;
+            collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-dam);
             Destroy(gameObject);
         }
     }

@@ -4,6 +4,7 @@ public class EnemyThrow : MonoBehaviour
 {
     public GameObject bottle;
     public Transform bottlePos;
+    public Animator anim;
 
     private float timer;
     private GameObject player;
@@ -19,15 +20,21 @@ public class EnemyThrow : MonoBehaviour
         float distance = Vector2.Distance(transform.position, player.transform.position);
         Debug.Log(distance);
 
-        if (distance < 4) 
+
+
+        if (distance < 10) 
         {
             timer += Time.deltaTime;
 
             if (timer > 2)
             {
+                anim.SetBool("isThrowing", true);
                 timer = 0;
-                throwbot();
             }
+        }
+        else
+        {
+            anim.SetBool("isThrowing", false);
         }
     }
 

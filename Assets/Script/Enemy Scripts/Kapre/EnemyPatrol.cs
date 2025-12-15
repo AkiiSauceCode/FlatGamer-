@@ -10,6 +10,10 @@ public class EnemyPatrol : MonoBehaviour
     private Transform currentpoint;
     public float speed;
 
+    public Transform playerTransform;
+    public bool isChasing;
+    public float chaseDistance;
+
     public float waitduration;
     void Start()
     {
@@ -22,17 +26,48 @@ public class EnemyPatrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isChasing) 
+        {
+            if (transform.position.x > playerTransform.position.x) 
+            {
+                transform.localScale = new Vector3(-2, 2, 2);
+                transform.position += Vector3.left * speed * Time.deltaTime;
+            }
+            else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
+            {
+                isChasing = false;
+            }
+            if (transform.position.x < playerTransform.position.x)
+            {
+                transform.localScale = new Vector3(2, 2, 2);
+                transform.position += Vector3.right * speed * Time.deltaTime;
+            }
+            else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
+            {
+                isChasing = false;
+            }
+
+        } 
+
+        else
+        {
+            if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
+            {
+                isChasing = true;
+            }    
+        }
+
         Vector2 point = currentpoint.position - transform.position;
-        if (currentpoint == point2.transform) 
+        if (currentpoint == point2.transform)
         {
             rb.linearVelocity = new Vector2(speed, 0);
         }
-        else 
+        else
         {
             rb.linearVelocity = new Vector2(-speed, 0);
         }
 
-        if (Vector2.Distance(transform.position, currentpoint.position) < 0.5f && currentpoint == point2.transform) 
+        if (Vector2.Distance(transform.position, currentpoint.position) < 0.5f && currentpoint == point2.transform)
         {
             flip();
             StartCoroutine(waitnextpoint());

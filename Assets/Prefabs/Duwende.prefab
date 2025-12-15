@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1245958010112850944}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.13796997, y: -0.93263984, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -131,6 +131,9 @@ MonoBehaviour:
   point1: {fileID: 6117593025947133101}
   point2: {fileID: 8117725283517874071}
   speed: 2
+  playerTransform: {fileID: 0}
+  isChasing: 0
+  chaseDistance: 0
   waitduration: 5
 --- !u!50 &3978154799975539558
 Rigidbody2D:
@@ -221,7 +224,7 @@ Transform:
   m_GameObject: {fileID: 6117593025947133101}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.86203, y: -0.93263984, z: 0}
+  m_LocalPosition: {x: -2.86203, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -252,7 +255,7 @@ Transform:
   m_GameObject: {fileID: 8117725283517874071}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.13797, y: -0.93263984, z: 0}
+  m_LocalPosition: {x: 3.13797, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
