@@ -9,12 +9,18 @@ public class EnemyPatrol : MonoBehaviour
     private Rigidbody2D rb;
     private Transform currentpoint;
     public float speed;
+    public Transform ledgedetector;
+    public LayerMask ground;
+    public float raycastDistance;
 
     public Transform playerTransform;
     public bool isChasing;
     public float chaseDistance;
-
     public float waitduration;
+
+    public int dam;
+    public bool condition = true;
+    public bool path = true;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,59 +32,84 @@ public class EnemyPatrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isChasing) 
+        path = true;
+        if (condition)
         {
-            if (transform.position.x > playerTransform.position.x) 
+            RaycastHit2D hit = Physics2D.Raycast(ledgedetector.position, Vector2.down, raycastDistance, ground);
+
+            if (hit.collider == null)
             {
-                transform.localScale = new Vector3(-2, 2, 2);
-                transform.position += Vector3.left * speed * Time.deltaTime;
-            }
-            else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
-            {
+                chaseDistance = 0;
                 isChasing = false;
-            }
-            if (transform.position.x < playerTransform.position.x)
-            {
-                transform.localScale = new Vector3(2, 2, 2);
-                transform.position += Vector3.right * speed * Time.deltaTime;
-            }
-            else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
-            {
-                isChasing = false;
+                path = true;
             }
 
-        } 
-
-        else
-        {
-            if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
+            else if (isChasing)
             {
-                isChasing = true;
-            }    
+                if (transform.position.x > playerTransform.position.x)
+                {
+                    transform.localScale = new Vector3(-2, 2, 2);
+                    transform.position += Vector3.left * speed * Time.deltaTime;
+                    path = false;
+                }
+                else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
+                {
+                    isChasing = false;
+                    path = true;
+                }
+                if (transform.position.x < playerTransform.position.x)
+                {
+                    transform.localScale = new Vector3(2, 2, 2);
+                    transform.position += Vector3.right * speed * Time.deltaTime;
+                    path = false;
+                }
+                else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
+                {
+                    isChasing = false;
+                    path = true;
+                }
+            }
+
+            else
+            {
+                if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
+                {
+                    isChasing = true;
+                    path = false;
+                }
+            }
+
+            if (path)
+            {
+                Vector2 point = currentpoint.position - transform.position;
+                if (currentpoint == point2.transform)
+                {
+                    transform.localScale = new Vector3(2, 2, 2);
+                    rb.linearVelocity = new Vector2(speed, 0);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(-2, 2, 2);
+                    rb.linearVelocity = new Vector2(-speed, 0);
+                }
+
+                if (Vector2.Distance(transform.position, currentpoint.position) < 0.5f && currentpoint == point2.transform)
+                {
+                    chaseDistance = 5;
+                    flip();
+                    StartCoroutine(waitnextpoint());
+                    currentpoint = point1.transform;
+                }
+                if (Vector2.Distance(transform.position, currentpoint.position) < 0.5f && currentpoint == point1.transform)
+                {
+                    chaseDistance = 5;
+                    flip();
+                    StartCoroutine(waitnextpoint());
+                    currentpoint = point2.transform;
+                }
+            }
         }
 
-        Vector2 point = currentpoint.position - transform.position;
-        if (currentpoint == point2.transform)
-        {
-            rb.linearVelocity = new Vector2(speed, 0);
-        }
-        else
-        {
-            rb.linearVelocity = new Vector2(-speed, 0);
-        }
-
-        if (Vector2.Distance(transform.position, currentpoint.position) < 0.5f && currentpoint == point2.transform)
-        {
-            flip();
-            StartCoroutine(waitnextpoint());
-            currentpoint = point1.transform;
-        }
-        if (Vector2.Distance(transform.position, currentpoint.position) < 0.5f && currentpoint == point1.transform)
-        {
-            flip();
-            StartCoroutine(waitnextpoint());
-            currentpoint = point2.transform;
-        }
     }
 
     private void flip() 
@@ -102,5 +133,31 @@ public class EnemyPatrol : MonoBehaviour
         yield return new WaitForSeconds(waitduration);
         speed = 2;
         anim.SetBool("isRunning", true);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player")) 
+        {
+            anim.SetBool("isAttacking", true);
+            condition = false;
+        }
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            anim.SetBool("isAttacking", false);
+            condition = true;
+            chaseDistance = 5;
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player")) 
+        {
+            collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-dam);
+        }
     }
 }
