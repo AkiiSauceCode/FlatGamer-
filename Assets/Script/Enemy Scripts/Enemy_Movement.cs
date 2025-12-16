@@ -131,12 +131,12 @@ public class Enemy_Movement : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(detectionPoint.position, new Vector2(playerDetectRange, 2.5f) );
     }
-}
-
-public enum EnemyState
+    public enum EnemyState
 {
     Idle,
     Chasing,
     Attacking,
     Knockback
 }
+}
+

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &657710100014952512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3981616371663968145}
+  m_Layer: 7
+  m_Name: AtkPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3981616371663968145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657710100014952512}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.48, y: -0.37, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 956772700807703444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1084960780189329534
 GameObject:
   m_ObjectHideFlags: 0
@@ -17,6 +48,7 @@ GameObject:
   - component: {fileID: 2854759641400293127}
   - component: {fileID: 6411397811444246697}
   - component: {fileID: 9130856321720463532}
+  - component: {fileID: 8710298172215834766}
   m_Layer: 7
   m_Name: Manananggal  Sprite
   m_TagString: Untagged
@@ -38,6 +70,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5389011198686332551}
+  - {fileID: 3981616371663968145}
   m_Father: {fileID: 4084756859575138033}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4137229034853156136
@@ -112,6 +145,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlyingEnemyMovement
   speed: 5
   chase: 0
+  hoverHeight: 2
+  hoverAmplitude: 0.3
+  hoverFrequency: 2
+  hoverXOffset: 1.5
+  attackDistance: 1.2
+  attackPause: 1
   startingPoint: {fileID: 3293603211495815375}
 --- !u!70 &4981968331128369092
 CapsuleCollider2D:
@@ -234,11 +273,31 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084960780189329534}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c6d8c10d4d4204418713d112645ea23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &8710298172215834766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084960780189329534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 601a1dacb7c350b4b96155c860877bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MananangalAtk
+  anim: {fileID: 2854759641400293127}
+  damage: 1
+  cooldown: 2
+  range: 0.5
+  attackPoint: {fileID: 3981616371663968145}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &2233670044348417207
 GameObject:
   m_ObjectHideFlags: 0
