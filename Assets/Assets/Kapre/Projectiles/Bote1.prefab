@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 836695242380604421}
   - component: {fileID: 2964190865105669016}
   - component: {fileID: -1170766109381971362}
-  - component: {fileID: 1533787405834580965}
+  - component: {fileID: 7960032492140507667}
   m_Layer: 0
   m_Name: Bote1
   m_TagString: Untagged
@@ -134,8 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   force: 5
   dam: 1
---- !u!61 &1533787405834580965
-BoxCollider2D:
+--- !u!60 &7960032492140507667
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -178,5 +178,15 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.64, y: 0.64}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.12, y: 0.11}
+      - {x: -0.025835797, y: 0.066502675}
+      - {x: -0.12, y: -0.03}
+      - {x: -0.10066902, y: -0.085834846}
+      - {x: -0.0010025799, y: -0.12550081}
+      - {x: 0.025835797, y: -0.13516702}
+      - {x: 0.09550224, y: -0.07033391}
+      - {x: 0.13, y: 0.014833102}
+      - {x: 0.12033355, y: 0.09516689}
+  m_UseDelaunayMesh: 0
