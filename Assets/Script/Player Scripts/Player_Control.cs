@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
    [SerializeField] private LayerMask groundLayer;
    [SerializeField] private PhysicsMaterial2D noFriction;
 
+
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -33,14 +34,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce); 
-            rb.sharedMaterial = noFriction;
-        }
+        } 
         
         if (IsGrounded())
         {
             rb.sharedMaterial = null;
         }
-
+        else
+        {
+            rb.sharedMaterial = noFriction;
+        }
+            
+        
+        
+        
         if (Input.GetButtonUp("Jump") && rb.linearVelocityY > 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocityX, rb.linearVelocity.y * 0.5f);
@@ -67,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.4f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
     }
     
     private void Flip()
@@ -84,7 +91,7 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(groundCheck.position, 0.3f);
+        Gizmos.DrawWireSphere(groundCheck.position, 0.1f);
     }
 
 
