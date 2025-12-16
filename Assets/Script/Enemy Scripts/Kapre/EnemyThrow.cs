@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyThrow : MonoBehaviour
 {
@@ -6,8 +7,11 @@ public class EnemyThrow : MonoBehaviour
     public Transform bottlePos;
     public Animator anim;
 
+    public Transform playerTransform;
     private float timer;
     private GameObject player;
+
+    public float waitduration;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,7 +21,16 @@ public class EnemyThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector2.Distance(transform.position, player.transform.position);
+        if (transform.position.x > playerTransform.position.x)
+        {
+            transform.localScale = new Vector3(-2, 2, 2);
+        }
+        if (transform.position.x < playerTransform.position.x)
+        {
+            transform.localScale = new Vector3(2, 2, 2);
+        }
+
+            float distance = Vector2.Distance(transform.position, player.transform.position);
         Debug.Log(distance);
 
 
@@ -28,7 +41,7 @@ public class EnemyThrow : MonoBehaviour
 
             if (timer > 2)
             {
-                anim.SetBool("isThrowing", true);
+                StartCoroutine(cooldown());
                 timer = 0;
             }
         }
@@ -41,5 +54,13 @@ public class EnemyThrow : MonoBehaviour
     void throwbot() 
     {
         Instantiate(bottle, bottlePos.position, Quaternion.identity);
+    }
+
+    IEnumerator cooldown()
+    {
+        anim.SetBool("isThrowing", true);
+        yield return new WaitForSeconds(1);
+        anim.SetBool("isThrowing", false);
+        yield return new WaitForSeconds(waitduration);
     }
 }
