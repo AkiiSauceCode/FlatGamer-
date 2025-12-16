@@ -38,5 +38,9 @@ public class EnemyBottleScript : MonoBehaviour
             collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-dam);
             Destroy(gameObject);
         }
+        else if (collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
