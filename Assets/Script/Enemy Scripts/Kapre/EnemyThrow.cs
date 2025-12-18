@@ -31,7 +31,7 @@ public class EnemyThrow : MonoBehaviour
         }
 
             float distance = Vector2.Distance(transform.position, player.transform.position);
-        Debug.Log(distance);
+        
 
 
 
@@ -59,7 +59,7 @@ public class EnemyThrow : MonoBehaviour
     IEnumerator cooldown()
     {
         anim.SetBool("isThrowing", true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         anim.SetBool("isThrowing", false);
         yield return new WaitForSeconds(waitduration);
     }

@@ -7,8 +7,10 @@ public class PlayerHealth : MonoBehaviour
     public event Action OnDamageTaken;
     public event Action OnDeath;
 
+    public GameObject SharedHealthObject;
+
     public int maxHealth = 50;
-    public int currentHealth;
+    public int currentHealth = 50;
 
     public TMP_Text healthtext;
     public Animator healthanimation;
@@ -22,30 +24,30 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        currentHealth = maxHealth;
+        maxHealth = SharedHealthObject.GetComponent<SharedHealth>().maxHealth;
+        currentHealth = SharedHealthObject.GetComponent<SharedHealth>().currentHealth;
         UpdateHealthUI();
     }
 
     public void ChangeHealth(int amount)
     {
-        currentHealth += amount;
+        SharedHealthObject.GetComponent<SharedHealth>().currentHealth += amount;
+        currentHealth = SharedHealthObject.GetComponent<SharedHealth>().currentHealth;
 
-        // Clamp health
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         if (amount < 0 && currentHealth > 0)
         {
             OnDamageTaken?.Invoke();
         }
 
-        if (currentHealth == 0)
+        if (currentHealth <= 0)
         {
             OnDeath?.Invoke();
             Death();
             return;
         }
         
-        healthanimation.Play("TextUpdate");
+        
         UpdateHealthUI();
     }
 

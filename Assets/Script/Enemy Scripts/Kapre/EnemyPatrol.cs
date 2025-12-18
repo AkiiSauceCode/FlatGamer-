@@ -3,170 +3,167 @@ using System.Collections;
 
 public class EnemyPatrol : MonoBehaviour
 {
+    [Header("Patrol Points")]
     public GameObject point1;
     public GameObject point2;
+
+    [Header("Movement")]
+    public float speed = 2f;
+    private Transform currentPoint;
+
+    [Header("Ground Detection")]
+    public Transform ledgeDetector;
+    public LayerMask ground;
+    public float raycastDistance = 1f;
+
+    [Header("Chase Settings")]
+    public float chaseDistance = 5f;
+    public float waitDuration = 1f;
+
+    [Header("Combat")]
+    public int damage = 1;
+    public float attackCooldown = 1f; // ✅ cooldown (1 second)
+
+    private float attackTimer = 0f;    // ✅ cooldown timer
+
     private Animator anim;
     private Rigidbody2D rb;
-    private Transform currentpoint;
-    public float speed;
-    public Transform ledgedetector;
-    public LayerMask ground;
-    public float raycastDistance;
+    private Transform playerTransform;
 
-    public Transform playerTransform;
-    public bool isChasing;
-    public float chaseDistance;
-    public float waitduration;
+    public bool isChasing = false;
+    private bool canMove = true;
 
-    public int dam;
-    public bool condition = true;
-    public bool path = true;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        currentpoint = point2.transform;
+
+        currentPoint = point2.transform;
         anim.SetBool("isRunning", true);
+
+        FindPlayer();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        condition = true;
-        path = true;
-        if (condition)
+        // ✅ cooldown countdown
+        if (attackTimer > 0f)
+            attackTimer -= Time.deltaTime;
+
+        if (!canMove || playerTransform == null)
+            return;
+
+        DetectLedge();
+
+        if (isChasing)
         {
-            RaycastHit2D hit = Physics2D.Raycast(ledgedetector.position, Vector2.down, raycastDistance, ground);
-
-            if (hit.collider == null)
-            {
-                flip();
-                chaseDistance = 0;
-                isChasing = false;
-                path = true;
-            }
-
-            if (path)
-            {
-                Vector2 point = currentpoint.position - transform.position;
-                if (currentpoint == point2.transform)
-                {
-                    transform.localScale = new Vector3(2, 2, 2);
-                    rb.linearVelocity = new Vector2(speed, 0);
-                }
-                else
-                {
-                    transform.localScale = new Vector3(-2, 2, 2);
-                    rb.linearVelocity = new Vector2(-speed, 0);
-                }
-
-                if (Vector2.Distance(transform.position, currentpoint.position) < 0.5f && currentpoint == point2.transform)
-                {
-                    chaseDistance = 5;
-                    flip();
-                    StartCoroutine(waitnextpoint());
-                    currentpoint = point1.transform;
-                }
-                if (Vector2.Distance(transform.position, currentpoint.position) < 0.5f && currentpoint == point1.transform)
-                {
-                    chaseDistance = 5;
-                    flip();
-                    StartCoroutine(waitnextpoint());
-                    currentpoint = point2.transform;
-                }
-
-                else if (isChasing)
-                {
-                    if (transform.position.x > playerTransform.position.x)
-                    {
-                        transform.localScale = new Vector3(-2, 2, 2);
-                        transform.position += Vector3.left * speed * Time.deltaTime;
-                        path = false;
-                    }
-                    else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
-                    {
-                        isChasing = false;
-                        path = true;
-                    }
-                    if (transform.position.x < playerTransform.position.x)
-                    {
-                        transform.localScale = new Vector3(2, 2, 2);
-                        transform.position += Vector3.right * speed * Time.deltaTime;
-                        path = false;
-                    }
-                    else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
-                    {
-                        isChasing = false;
-                        path = true;
-                    }
-                }
-                else
-                {
-                    if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
-                    {
-                        isChasing = true;
-                        path = false;
-                    }
-                }
-
-            }
+            ChasePlayer();
         }
-
+        else
+        {
+            Patrol();
+        }
     }
 
-    private void flip()
+    void FindPlayer()
     {
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            playerTransform = player.transform;
     }
 
-    private void OnDrawGizmos()
+    void Patrol()
     {
-        Gizmos.DrawWireSphere(point1.transform.position, 0.5f);
-        Gizmos.DrawWireSphere(point2.transform.position, 0.5f);
-        Gizmos.DrawLine(point1.transform.position, point2.transform.position);
+        Vector2 direction = (currentPoint.position - transform.position).normalized;
+        rb.linearVelocity = new Vector2(direction.x * speed, rb.linearVelocity.y);
+        Flip(direction.x);
+
+        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f)
+            StartCoroutine(SwitchPoint());
     }
 
-    IEnumerator waitnextpoint()
+    IEnumerator SwitchPoint()
     {
-        speed = 0;
+        canMove = false;
+        rb.linearVelocity = Vector2.zero;
         anim.SetBool("isRunning", false);
-        yield return new WaitForSeconds(waitduration);
-        speed = 2;
+
+        yield return new WaitForSeconds(waitDuration);
+
+        currentPoint = (currentPoint == point1.transform) ? point2.transform : point1.transform;
         anim.SetBool("isRunning", true);
+        canMove = true;
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    void ChasePlayer()
     {
+        float direction = playerTransform.position.x - transform.position.x;
+        rb.linearVelocity = new Vector2(Mathf.Sign(direction) * speed, rb.linearVelocity.y);
+        Flip(direction);
 
-        if (collision.CompareTag("Player"))
+        if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
+            isChasing = false;
+    }
+
+    void DetectLedge()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(
+            ledgeDetector.position,
+            Vector2.down,
+            raycastDistance,
+            ground
+        );
+
+        if (!hit)
         {
-            anim.SetBool("isAttacking", true);
-            condition = false;
-            speed = 0;
+            rb.linearVelocity = Vector2.zero;
+            isChasing = false;
+            StartCoroutine(SwitchPoint());
         }
     }
-    public void OnTriggerExit2D(Collider2D collision)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(ledgedetector.position, Vector2.down, raycastDistance, ground);
 
+    // =========================
+    // ATTACK (Cooldown Added)
+    // =========================
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Player"))
+            return;
+
+        if (attackTimer > 0f) // ✅ cooldown check
+            return;
+
+        anim.SetBool("isAttacking", true);
+        rb.linearVelocity = Vector2.zero;
+        canMove = false;
+
+        attackTimer = attackCooldown; // ✅ start cooldown
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
         if (collision.CompareTag("Player"))
         {
             anim.SetBool("isAttacking", false);
-            speed = 3;
-            condition = true;
-            chaseDistance = 5;
+            canMove = true;
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    void Flip(float direction)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (direction > 0)
+            transform.localScale = new Vector3(2, 2, 2);
+        else if (direction < 0)
+            transform.localScale = new Vector3(-2, 2, 2);
+    }
+
+    void OnDrawGizmos()
+    {
+        if (point1 != null && point2 != null)
         {
-            collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-dam);
+            Gizmos.DrawWireSphere(point1.transform.position, 0.5f);
+            Gizmos.DrawWireSphere(point2.transform.position, 0.5f);
+            Gizmos.DrawLine(point1.transform.position, point2.transform.position);
         }
     }
 }
-
-
