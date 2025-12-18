@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditor.VersionControl;
 
 public class AnitoScript : MonoBehaviour
 {
@@ -21,7 +22,6 @@ public class AnitoScript : MonoBehaviour
     public int dam;
     public bool condition = true;
     public bool path = true;
-    public float aggro;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,6 +33,7 @@ public class AnitoScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        condition = true;
         path = true;
         if (condition)
         {
@@ -44,41 +45,6 @@ public class AnitoScript : MonoBehaviour
                 chaseDistance = 0;
                 isChasing = false;
                 path = true;
-            }
-
-            else if (isChasing)
-            {
-                if (transform.position.x > playerTransform.position.x)
-                {
-                    transform.localScale = new Vector3(-2, 2, 2);
-                    transform.position += Vector3.left * speed * Time.deltaTime;
-                    path = false;
-                }
-                else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
-                {
-                    isChasing = false;
-                    path = true;
-                }
-                if (transform.position.x < playerTransform.position.x)
-                {
-                    transform.localScale = new Vector3(2, 2, 2);
-                    transform.position += Vector3.right * speed * Time.deltaTime;
-                    path = false;
-                }
-                else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
-                {
-                    isChasing = false;
-                    path = true;
-                }
-            }
-
-            else
-            {
-                if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
-                {
-                    isChasing = true;
-                    path = false;
-                }
             }
 
             if (path)
@@ -109,6 +75,41 @@ public class AnitoScript : MonoBehaviour
                     StartCoroutine(waitnextpoint());
                     currentpoint = point2.transform;
                 }
+
+                else if (isChasing)
+                {
+                    if (transform.position.x > playerTransform.position.x)
+                    {
+                        transform.localScale = new Vector3(-2, 2, 2);
+                        transform.position += Vector3.left * speed * Time.deltaTime;
+                        path = false;
+                    }
+                    else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
+                    {
+                        isChasing = false;
+                        path = true;
+                    }
+                    if (transform.position.x < playerTransform.position.x)
+                    {
+                        transform.localScale = new Vector3(2, 2, 2);
+                        transform.position += Vector3.right * speed * Time.deltaTime;
+                        path = false;
+                    }
+                    else if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
+                    {
+                        isChasing = false;
+                        path = true;
+                    }
+                }
+                else
+                {
+                    if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
+                    {
+                        isChasing = true;
+                        path = false;
+                    }
+                }
+
             }
         }
 
@@ -139,17 +140,22 @@ public class AnitoScript : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.CompareTag("Player"))
         {
             anim.SetBool("isAttacking", true);
             condition = false;
+            speed = 0;
         }
     }
     public void OnTriggerExit2D(Collider2D collision)
     {
+        RaycastHit2D hit = Physics2D.Raycast(ledgedetector.position, Vector2.down, raycastDistance, ground);
+
         if (collision.CompareTag("Player"))
         {
             anim.SetBool("isAttacking", false);
+            speed = 3;
             condition = true;
             chaseDistance = 5;
         }
@@ -162,15 +168,5 @@ public class AnitoScript : MonoBehaviour
             collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-dam);
         }
     }
-
-    IEnumerator wait()
-    {
-        isChasing = false;
-        path = false;
-        speed = 0;
-        anim.SetBool("isRunning", false);
-        yield return new WaitForSeconds(aggro);
-        speed = 2;
-        anim.SetBool("isRunning", true);
-    }
 }
+
