@@ -8,13 +8,15 @@ public class FlyingEnemyMovement : MonoBehaviour
     public float range = 0.5f;
     public float knockbackForce = 5f;
     public Transform attackPoint;
-    public LayerMask playerLayer; 
-
-    
+    public LayerMask playerLayer;
 
     [Header("Movement")]
     [SerializeField] private float speed = 5f;
-    [SerializeField] public bool chase = false;
+    public bool chase = false;
+
+    [Header("Spawn Tounge Settings")]
+    public GameObject tounge;
+    public Transform toungeTransform;
 
     [Header("Hover Settings")]
     [SerializeField] private float hoverHeight = 2f;
@@ -28,26 +30,34 @@ public class FlyingEnemyMovement : MonoBehaviour
     public Animator anim;
     private float hoverTimer;
 
+    private float timer;
+    private bool isAttacking; // ✅ NEW
+    private Vector3 offset;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        offset = new Vector3(0f, 0f, 0f);
+        
     }
 
-    private float timer;
     void Update()
     {
         if (timer > 0)
-        {
             timer -= Time.deltaTime;
-        }
 
         if (player == null) return;
 
-        if (CheckForPlayerWithinAttackRange())
+        // 🚫 Stop movement while attacking
+        if (isAttacking)
+            return;
+
+        if (CheckForPlayerWithinAttackRange() && timer <= 0)
         {
-            Debug.Log("Attack Player");
+            chase = false;
             attack();
             Flip(player.transform.position.x);
+            return;
         }
 
         if (chase)
@@ -59,8 +69,6 @@ public class FlyingEnemyMovement : MonoBehaviour
         {
             ReturnToStartPoint();
         }
-      
-        
     }
 
     private void Chase()
@@ -69,11 +77,10 @@ public class FlyingEnemyMovement : MonoBehaviour
 
         float hoverOffsetY = Mathf.Sin(hoverTimer * hoverFrequency) * hoverAmplitude;
 
-        // Decide which side of the player to hover
         float side = transform.position.x > player.transform.position.x ? 1f : -1f;
 
         Vector2 targetPosition = new Vector2(
-            player.transform.position.x + (hoverXOffset * side),
+            player.transform.position.x + hoverXOffset * side,
             player.transform.position.y + hoverHeight + hoverOffsetY
         );
 
@@ -86,33 +93,34 @@ public class FlyingEnemyMovement : MonoBehaviour
 
     public bool CheckForPlayerWithinAttackRange()
     {
-        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, range, playerLayer);
-        if (hitPlayers.Length > 0) 
-        {
-            Debug.Log("Payer in range");
-            return true;
-        }
-        else
-        return false;
+        return Physics2D.OverlapCircle(
+            attackPoint.position,
+            range,
+            playerLayer
+        );
     }
 
     public void attack()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, range, playerLayer);
-        if (hitEnemies.Length > 0) 
-        {
-            // Deal damage to the player
-        }
-
-        if (timer <= 0)
-        {
-            anim.SetBool("isAttacking", true);
-            timer = cooldown;
-        }
+        isAttacking = true; // ✅ stop movement
+        anim.SetBool("isAttacking", true);
+        timer = cooldown;
     }
-    public void finishattacking() 
+
+    // 🔔 Animation Event
+    public void finishattacking()
     {
         anim.SetBool("isAttacking", false);
+        isAttacking = false;
+        chase = true;
+    }
+
+    
+    // 🔔 Animation Event
+    void spawntounge()
+    {
+        
+        Instantiate(tounge, transform.position + offset, Quaternion.identity);
     }
 
     private void ReturnToStartPoint()

@@ -65,7 +65,7 @@ Transform:
   m_GameObject: {fileID: 1084960780189329534}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.88, y: -0.34, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.4, y: 2.4, z: 2.4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -143,15 +143,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435acda76d7dcf44e9685702224c93dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingEnemyMovement
+  damage: 1
+  cooldown: 2
+  range: 0.5
+  knockbackForce: 5
+  attackPoint: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
   speed: 5
   chase: 0
+  tounge: {fileID: 0}
+  toungeTransform: {fileID: 0}
   hoverHeight: 2
   hoverAmplitude: 0.3
   hoverFrequency: 2
   hoverXOffset: 1.5
-  attackDistance: 1.2
-  attackPause: 1
   startingPoint: {fileID: 3293603211495815375}
+  anim: {fileID: 0}
 --- !u!70 &4981968331128369092
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -294,6 +303,7 @@ MonoBehaviour:
   damage: 1
   cooldown: 2
   range: 0.5
+  knockbackForce: 5
   attackPoint: {fileID: 3981616371663968145}
   enemyLayer:
     serializedVersion: 2
@@ -323,7 +333,7 @@ Transform:
   m_GameObject: {fileID: 2233670044348417207}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.47, z: 0}
   m_LocalScale: {x: 2.4, y: 2.4, z: 2.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -389,7 +399,7 @@ Transform:
   m_GameObject: {fileID: 7622976199369777479}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.016666252, y: -0.062499985, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
