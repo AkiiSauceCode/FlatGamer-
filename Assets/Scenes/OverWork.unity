@@ -717,6 +717,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1245958010112850944, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2193288991062630697, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
+      propertyPath: m_Size.x
+      value: 0.45685387
+      objectReference: {fileID: 0}
+    - target: {fileID: 2193288991062630697, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
+      propertyPath: m_Size.y
+      value: 0.548642
+      objectReference: {fileID: 0}
+    - target: {fileID: 2193288991062630697, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.016934395
+      objectReference: {fileID: 0}
+    - target: {fileID: 2193288991062630697, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.060296267
+      objectReference: {fileID: 0}
     - target: {fileID: 2193288991062630697, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
       propertyPath: m_IsTrigger
       value: 0
@@ -806,6 +826,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8910650337435426366, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
+      propertyPath: aggro
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910650337435426366, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910650337435426366, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
       propertyPath: waitduration
       value: 1
       objectReference: {fileID: 0}
@@ -827,7 +855,7 @@ PrefabInstance:
       objectReference: {fileID: 1869724171}
     - target: {fileID: 8910650337435426366, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
       propertyPath: raycastDistance
-      value: 1.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8910650337435426366, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
       propertyPath: waitdurationattack
@@ -847,6 +875,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1245958010112850944, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1330136065}
+    - targetCorrespondingSourceObject: {fileID: 1245958010112850944, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1330136071}
   m_SourcePrefab: {fileID: 100100000, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
 --- !u!1 &1183774558
 GameObject:
@@ -858,7 +889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1183774559}
   - component: {fileID: 1183774560}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -970,8 +1001,28 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.02418232, y: -0.00007814169}
-  m_Radius: 0.42837238
+  m_Offset: {x: 0.06939983, y: 0.0159311}
+  m_Radius: 0.4242239
+--- !u!95 &1330136069 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5724376154820193539, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
+  m_PrefabInstance: {fileID: 1122011636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1330136071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330136052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca0c4e82acc5dc84ab25f08ce8bbe2e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  anim: {fileID: 1330136069}
+  maxHealth: 10
+  currentHealth: 0
 --- !u!1 &1378520218
 GameObject:
   m_ObjectHideFlags: 0
@@ -4022,7 +4073,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1991151757}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ledgedetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4038,7 +4089,7 @@ Transform:
   m_GameObject: {fileID: 1991151756}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.28, y: -0.11, z: 0}
+  m_LocalPosition: {x: 0.6764997, y: -0.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

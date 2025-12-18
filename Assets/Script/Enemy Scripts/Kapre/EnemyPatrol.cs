@@ -21,6 +21,7 @@ public class EnemyPatrol : MonoBehaviour
     public int dam;
     public bool condition = true;
     public bool path = true;
+    public float aggro;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,6 +40,7 @@ public class EnemyPatrol : MonoBehaviour
 
             if (hit.collider == null)
             {
+                flip();
                 chaseDistance = 0;
                 isChasing = false;
                 path = true;
@@ -159,5 +161,16 @@ public class EnemyPatrol : MonoBehaviour
         {
             collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-dam);
         }
+    }
+
+    IEnumerator wait()
+    {
+        isChasing = false;
+        path = false;
+        speed = 0;
+        anim.SetBool("isRunning", false);
+        yield return new WaitForSeconds(aggro);
+        speed = 2;
+        anim.SetBool("isRunning", true);
     }
 }

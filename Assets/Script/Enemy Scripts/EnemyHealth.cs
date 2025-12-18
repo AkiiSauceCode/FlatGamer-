@@ -29,7 +29,6 @@ public class EnemyHealth : MonoBehaviour
     void HandleDamage()
     {
         anim.SetTrigger("isDamaged");
-
     }
     
 
