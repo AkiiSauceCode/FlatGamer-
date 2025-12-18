@@ -1,16 +1,18 @@
+using System.Collections;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    public Animator wipeoutAnimator;
 
     public GameObject SettingsMenu;
     public void OnClickPlay()
     {
-
-        // play the cutscene or wat
-        SceneManager.LoadScene("OverWork");
+        Debug.Log("Play button clicked.");
+        wipeoutAnimator.SetTrigger("wipeout");
+        StartCoroutine(LoadScener());
     }
 
     public void OnClickQuit()
@@ -18,21 +20,18 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void OnClickSettings()
+    IEnumerator LoadScener()
     {
-        SettingsMenu.SetActive(true);
+        yield return new WaitForSeconds(0.999f);
+        SceneManager.LoadScene("Cutscene");
     }
 
-    public void OnClickBackSettings()
-    {
-        SettingsMenu.SetActive(false);
-    }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SettingsMenu.SetActive(false);
+        
     }
 
     // Update is called once per frame

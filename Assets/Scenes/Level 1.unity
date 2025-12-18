@@ -3222,9 +3222,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 20
-  currentHelth: 20
+  currentHealth: 0
   healthtext: {fileID: 1378520220}
   healthanimation: {fileID: 1378520222}
+  HealthBarUI0: {fileID: 0}
+  HealthBarUI1: {fileID: 0}
+  HealthBarUI2: {fileID: 0}
+  HealthBarUI3: {fileID: 0}
+  HealthBarUI4: {fileID: 0}
+  HealthBarUI5: {fileID: 0}
 --- !u!114 &1869724176
 MonoBehaviour:
   m_ObjectHideFlags: 0
