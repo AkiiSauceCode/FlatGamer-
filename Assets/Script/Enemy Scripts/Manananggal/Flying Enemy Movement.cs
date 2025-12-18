@@ -4,7 +4,7 @@ public class FlyingEnemyMovement : MonoBehaviour
 {
     [Header("Attack Settings")]
     public int damage = 1;
-    public float cooldown = 2;
+    public float cooldown = 2f;
     public float range = 0.5f;
     public float knockbackForce = 5f;
     public Transform attackPoint;
@@ -14,7 +14,7 @@ public class FlyingEnemyMovement : MonoBehaviour
     [SerializeField] private float speed = 5f;
     public bool chase = false;
 
-    [Header("Spawn Tounge Settings")]
+    [Header("Spawn Tongue Settings")]
     public GameObject tounge;
     public Transform toungeTransform;
 
@@ -31,14 +31,17 @@ public class FlyingEnemyMovement : MonoBehaviour
     private float hoverTimer;
 
     private float timer;
-    private bool isAttacking; // ✅ NEW
+    private bool isAttacking;
+
+    // Tongue spawn offset (RIGHT-facing)
     private Vector3 offset;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        offset = new Vector3(0f, 0f, 0f);
-        
+
+        // Adjust this if needed
+        offset = new Vector3(0.40514f, -0.194959f, 0f);
     }
 
     void Update()
@@ -48,7 +51,7 @@ public class FlyingEnemyMovement : MonoBehaviour
 
         if (player == null) return;
 
-        // 🚫 Stop movement while attacking
+        // Stop movement while attacking
         if (isAttacking)
             return;
 
@@ -76,7 +79,6 @@ public class FlyingEnemyMovement : MonoBehaviour
         hoverTimer += Time.deltaTime;
 
         float hoverOffsetY = Mathf.Sin(hoverTimer * hoverFrequency) * hoverAmplitude;
-
         float side = transform.position.x > player.transform.position.x ? 1f : -1f;
 
         Vector2 targetPosition = new Vector2(
@@ -102,12 +104,12 @@ public class FlyingEnemyMovement : MonoBehaviour
 
     public void attack()
     {
-        isAttacking = true; // ✅ stop movement
+        isAttacking = true;
         anim.SetBool("isAttacking", true);
         timer = cooldown;
     }
 
-    // 🔔 Animation Event
+    // Animation Event
     public void finishattacking()
     {
         anim.SetBool("isAttacking", false);
@@ -115,12 +117,19 @@ public class FlyingEnemyMovement : MonoBehaviour
         chase = true;
     }
 
-    
-    // 🔔 Animation Event
+    // Animation Event
     void spawntounge()
     {
-        
-        Instantiate(tounge, transform.position + offset, Quaternion.identity);
+        // Mirror offset when flipped
+        float direction = transform.rotation.y == 0 ? 1f : -1f;
+
+        Vector3 spawnPos = transform.position + new Vector3(
+            offset.x * direction,
+            offset.y,
+            offset.z
+        );
+
+        Instantiate(tounge, spawnPos, Quaternion.identity);
     }
 
     private void ReturnToStartPoint()
@@ -149,5 +158,13 @@ public class FlyingEnemyMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 180, 0);
         else
             transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    // Debug range
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, range);
     }
 }

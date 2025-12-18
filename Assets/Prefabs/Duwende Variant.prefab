@@ -176,7 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8910650337435426366, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
       propertyPath: dam
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8910650337435426366, guid: 3418e39c21abf154ab8eda6da850390d, type: 3}
       propertyPath: aggro

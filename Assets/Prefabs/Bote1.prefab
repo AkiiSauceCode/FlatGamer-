@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   force: 5
-  dam: 1
+  dam: 10
 --- !u!60 &7960032492140507667
 PolygonCollider2D:
   m_ObjectHideFlags: 0
