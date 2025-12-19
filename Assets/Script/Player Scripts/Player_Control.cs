@@ -1,13 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Net.Http.Headers;
-using NUnit.Framework;
-using UnityEditor.Build;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.SocialPlatforms;
 using UnityEngine.SceneManagement;
+
 
 public class PlayerController : MonoBehaviour
 {
