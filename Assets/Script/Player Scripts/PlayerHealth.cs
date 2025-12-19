@@ -24,11 +24,14 @@ public class PlayerHealth : MonoBehaviour
     public GameObject HealthBarUI4;
     public GameObject HealthBarUI5;
 
+    public GameObject GameOverUI;
+
     void Start()
     {
         maxHealth = SharedHealthObject.GetComponent<SharedHealth>().maxHealth;
         currentHealth = SharedHealthObject.GetComponent<SharedHealth>().currentHealth;
         UpdateHealthUI();
+        GameOverUI.SetActive(false);
     }
 
         private void OnEnable()
@@ -94,6 +97,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Death()
     {
+        GameOverUI.SetActive(true);
         HealthBarUI1.SetActive(false);
         HealthBarUI0.SetActive(true);
         gameObject.SetActive(false);

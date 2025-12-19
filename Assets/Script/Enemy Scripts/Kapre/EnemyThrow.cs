@@ -21,6 +21,11 @@ public class EnemyThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerTransform == null)
+        {
+            return;
+        }
+        
         if (transform.position.x > playerTransform.position.x)
         {
             transform.localScale = new Vector3(-2, 2, 2);

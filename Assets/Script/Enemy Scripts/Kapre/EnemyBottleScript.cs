@@ -13,6 +13,11 @@ public class EnemyBottleScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
 
+        if (player == null)
+        {
+            return;
+        }
+
         Vector3 direction = player.transform.position - transform.position;
         rb.linearVelocity = new Vector2 (direction.x, direction.y).normalized * force;
 
