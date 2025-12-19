@@ -13,6 +13,8 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth = 50;
 
     public TMP_Text healthtext;
+
+    public Animator anim;
     public Animator healthanimation;
 
     public GameObject HealthBarUI0;
@@ -27,6 +29,20 @@ public class PlayerHealth : MonoBehaviour
         maxHealth = SharedHealthObject.GetComponent<SharedHealth>().maxHealth;
         currentHealth = SharedHealthObject.GetComponent<SharedHealth>().currentHealth;
         UpdateHealthUI();
+    }
+
+        private void OnEnable()
+    {
+        OnDamageTaken += HandleDamage;
+    }
+    private void OnDisable()
+    {
+        OnDamageTaken -= HandleDamage;
+    }
+
+    void HandleDamage()
+    {
+        anim.SetTrigger("isDamaged");
     }
 
     public void ChangeHealth(int amount)
