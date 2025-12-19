@@ -328,16 +328,33 @@ MonoBehaviour:
   imageA: {fileID: 303583865}
   imageB: {fileID: 1102884509}
   lines:
-  - This is a test
-  - Shout out to Sir Adonis
-  - Shout out to Sir Adonis
-  - Shout out to Sir Adonis
-  - Shout out to Sir Adonis
-  - Shout out to Sir Adonis
-  - Shout out to Sir Adonis
-  - Shout out to Sir Adonis
-  - Shout out to Sir Adonis
-  - Shout out to Sir Adonis
+  - Once upon a time, there were siblings who watched over their cooking rice. Boy
+    Tira played with his slingshot while Girl Kusina stayed beside the stove.
+  - Then, a Kuba visited them unexpectedly. Holding a bizarre artifact that resembled
+    an eye and offered it to the siblings. "Wanna see what's it like to see with
+    a third eye?"
+  - Naive they were, they curiously accepted the offer. It was nothing they have
+    ever seen. A stone artifact with magic? They carefully examined the strange artifact,
+    until...
+  - A light shun out from its pupil and slithered its way into the ceiling.
+  - The light turned a radius into shining light that pulled the siblings into the
+    eye. Afraid was the only thing they felt as the rays of strange lighting surrounded
+    them.
+  - The kuba manically laughed as the siblings continued to get sucked into the eye
+    artifact. Lights exponentially gets brighter with each pull and struggle of the
+    siblings.
+  - Fully engulfed by the artifact light, the siblings hopelessly swam their way
+    into the other side. As if struggling makes any difference.
+  - As the light decreased by every second, so did their unfamiliarity with their
+    surroundings. Last time they checked, they were in their home. Now, it is a world
+    for darkness and monsters to roam around. These stories-come-true look at their
+    guests like a prey.
+  - Until Boy Tira suddenly remembered, "Our cooking rice!". Girl Kusina did not
+    want this burned as she promised this one won't be.
+  - They suddenly felt the urge of determination to find her and Boy Tira's way out
+    of this unfamiliar world. Ripping off excess fabric from Girl Kusina's sleeves
+    and turning them into their bandanas, they were ready to defeat monsters away
+    before their rice gets burned.
   cutsceneSprites:
   - {fileID: -2121100605196845894, guid: b615aa996012d394faa93d439ee24c3d, type: 3}
   - {fileID: 1363762933382280378, guid: 1f92ae7273f182e4ba29a5d8d031255c, type: 3}
@@ -349,8 +366,10 @@ MonoBehaviour:
   - {fileID: 8065760563959344549, guid: a7d6929361c78f84c9f708544d251b71, type: 3}
   - {fileID: -7524988170740611828, guid: 60929ee32af2f224ca06e232b8167f50, type: 3}
   - {fileID: -4716441083332541502, guid: 5cb6f308e3df03b4084f70725a920aad, type: 3}
-  textSpeed: 0.1
+  textSpeed: 0.05
   transitionDuration: 0.5
+  nextSceneName: 
+  swipeDistance: 1134.46
 --- !u!114 &590949337
 MonoBehaviour:
   m_ObjectHideFlags: 0

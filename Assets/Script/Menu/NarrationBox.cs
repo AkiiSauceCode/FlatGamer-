@@ -28,7 +28,7 @@ public class NarrationBox : MonoBehaviour
     private RectTransform currentRect;
     private RectTransform nextRect;
 
-    private float swipeDistance = 1034.46f;
+    public float swipeDistance = 1034.46f;
     private Vector2 fixedPosition = Vector2.zero;
 
     void Start()
