@@ -7,6 +7,7 @@ using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SocialPlatforms;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -92,6 +93,15 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, 0.1f);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Collect"))
+        {
+            Destroy(collision.gameObject);
+            SceneManager.LoadScene("EndScene");
+        }
     }
 
 
