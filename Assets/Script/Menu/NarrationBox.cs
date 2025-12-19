@@ -9,6 +9,7 @@ public class NarrationBox : MonoBehaviour
     public TextMeshProUGUI textComponent;
     public Image imageA;
     public Image imageB;
+    public Animator transition;
 
     public string[] lines;
     public Sprite[] cutsceneSprites;
@@ -43,7 +44,7 @@ public class NarrationBox : MonoBehaviour
         currentRect.anchoredPosition = fixedPosition;
         nextImage.gameObject.SetActive(false);
 
-        StartCoroutine(TypeLine());
+        StartCoroutine(TransitionEnter());
     }
 
     void Update()
@@ -75,6 +76,13 @@ public class NarrationBox : MonoBehaviour
         }
 
         isTyping = false;
+    }
+
+    IEnumerator TransitionEnter()
+    {
+        transition.SetTrigger("wipeoutleft");
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(TypeLine());
     }
 
     void NextLine()

@@ -25,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject HealthBarUI5;
 
     public GameObject GameOverUI;
+    public AudioSource backgroundMusic;
 
     void Start()
     {
@@ -97,6 +98,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Death()
     {
+        backgroundMusic.Stop();
         GameOverUI.SetActive(true);
         HealthBarUI1.SetActive(false);
         HealthBarUI0.SetActive(true);
