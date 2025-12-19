@@ -22,9 +22,9 @@ public class EnemyPatrol : MonoBehaviour
 
     [Header("Combat")]
     public int damage = 1;
-    public float attackCooldown = 1f; // ✅ cooldown (1 second)
+    public float attackCooldown = 5f; // ✅ cooldown (1 second)
 
-    private float attackTimer = 0f;    // ✅ cooldown timer
+    private float attackTimer = 5f;    // ✅ cooldown timer
 
     private Animator anim;
     private Rigidbody2D rb;
@@ -40,12 +40,15 @@ public class EnemyPatrol : MonoBehaviour
 
         currentPoint = point2.transform;
         anim.SetBool("isRunning", true);
+        attackTimer = attackCooldown; // ✅ initialize cooldown timer
 
         FindPlayer();
     }
 
     void Update()
     {
+        
+
         // ✅ cooldown countdown
         if (attackTimer > 0f)
             attackTimer -= Time.deltaTime;
@@ -130,12 +133,13 @@ public class EnemyPatrol : MonoBehaviour
         if (!collision.CompareTag("Player"))
             return;
 
-        if (attackTimer > 0f) // ✅ cooldown check
-            return;
+        if (attackTimer <= 0f) // ✅ cooldown check
+        {
 
-        anim.SetBool("isAttacking", true);
-        rb.linearVelocity = Vector2.zero;
-        canMove = false;
+            anim.SetBool("isAttacking", true);
+            rb.linearVelocity = Vector2.zero;
+            canMove = false;
+        }
 
         attackTimer = attackCooldown; // ✅ start cooldown
     }
