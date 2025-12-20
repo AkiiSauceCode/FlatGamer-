@@ -1,6 +1,4 @@
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class Enemy_Movement : MonoBehaviour
 {
