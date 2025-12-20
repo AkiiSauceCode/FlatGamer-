@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public event Action OnDeath;
 
     public GameObject SharedHealthObject;
+    public AudioSource takedamage;
 
     public int maxHealth = 50;
     public int currentHealth = 50;
@@ -46,6 +47,7 @@ public class PlayerHealth : MonoBehaviour
 
     void HandleDamage()
     {
+        takedamage.Play();
         anim.SetTrigger("isDamaged");
     }
 

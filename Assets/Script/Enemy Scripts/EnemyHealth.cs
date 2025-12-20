@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
     public Animator anim;
     public event Action OnDamageTaken;
     public event Action OnDeath;
+    public AudioSource takedamage;
 
 
     public int maxHealth = 10;
@@ -28,6 +29,7 @@ public class EnemyHealth : MonoBehaviour
 
     void HandleDamage()
     {
+        takedamage.Play();
         anim.SetTrigger("isDamaged");
     }
     

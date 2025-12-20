@@ -9,17 +9,15 @@ public class NarrationBox : MonoBehaviour
     public TextMeshProUGUI textComponent;
     public Image imageA;
     public Image imageB;
-    public Animator transition;
 
     public string[] lines;
     public Sprite[] cutsceneSprites;
 
     public float textSpeed = 0.03f;
     public float transitionDuration = 0.5f;
-
-    [Header("Scene Transition")]
-    public string nextSceneName; // Set the scene to load after narration
-
+    public GameObject narrationBox;
+    public GameObject TutorialBox;
+    public GameObject SkipButton;
     private int index = 0;
     private bool isTyping;
     private bool isTransitioning;
@@ -34,6 +32,7 @@ public class NarrationBox : MonoBehaviour
 
     void Start()
     {
+        TutorialBox.SetActive(false);
         currentImage = imageA;
         nextImage = imageB;
 
@@ -64,6 +63,7 @@ public class NarrationBox : MonoBehaviour
         }
     }
 
+
     IEnumerator TypeLine()
     {
         isTyping = true;
@@ -80,7 +80,6 @@ public class NarrationBox : MonoBehaviour
 
     IEnumerator TransitionEnter()
     {
-        transition.SetTrigger("wipeoutleft");
         yield return new WaitForSeconds(1f);
         StartCoroutine(TypeLine());
     }
@@ -89,8 +88,9 @@ public class NarrationBox : MonoBehaviour
     {
         if (index >= lines.Length - 1)
         {
-            // Narration finished → load next scene
-            StartCoroutine(LoadNextSceneAfterNarration());
+            SkipButton.SetActive(false);
+            narrationBox.SetActive(false);
+            TutorialBox.SetActive(true);
             return;
         }
 
@@ -140,9 +140,5 @@ public class NarrationBox : MonoBehaviour
         isTransitioning = false;
     }
 
-    IEnumerator LoadNextSceneAfterNarration()
-    {
-        yield return new WaitForSeconds(0.5f); // optional delay
-        SceneManager.LoadScene("Lvl1"); // loads your next scene
-    }
+    
 }
